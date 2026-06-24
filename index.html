@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kajja studio | Effortless Daily Matching Sets</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Syne (for bold aesthetic headers) & Plus Jakarta Sans (for body/sub-headers) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F4F1EA;
+            color: #111111;
+        }
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+        /* Custom smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F1EA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D8D2C4;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #111111;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden antialiased">
+
+<!-- Top Panel: Live WhatsApp Configurator (Sangat berguna untuk testing UMKM) -->
+<div id="demo-controller" class="bg-[#111111] text-[#F4F1EA] text-xs py-2 px-4 transition-all duration-300 relative border-b border-[#D8D2C4]/20 z-50">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+            <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <p class="font-medium">🔧 <span class="text-[#D8D2C4]">Live Demo Controller:</span> Masukkan nomor WhatsApp tokomu untuk uji coba tombol CTA!</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <label for="wa-input" class="text-neutral-400">No. WA:</label>
+            <input type="text" id="wa-input" value="628123456789" class="bg-neutral-800 text-white border border-neutral-700 rounded px-2 py-0.5 text-xs focus:outline-none focus:border-[#D8D2C4] w-36" placeholder="Contoh: 62812...">
+            <button onclick="saveWANumber()" class="bg-[#D8D2C4] hover:bg-white text-black font-semibold px-3 py-0.5 rounded transition duration-200">
+                Simpan
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Promo Banner -->
+<div class="bg-[#D8D2C4] text-[#111111] text-xs font-semibold py-1.5 px-4 text-center tracking-wider uppercase">
+    ✨ Free Ongkir Jabodetabek untuk Pembelian Pertama Eceran / Sample Grosir ✨
+</div>
+
+<!-- Navigation -->
+<nav class="sticky top-0 bg-[#F4F1EA]/90 backdrop-blur-md border-b border-[#D8D2C4]/30 z-40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Brand Logo -->
+            <div class="flex-shrink-0">
+                <a href="#" class="font-syne text-2xl font-extrabold tracking-tighter text-[#111111] flex items-center gap-2">
+                    kajja studio<span class="inline-block w-2 h-2 rounded-full bg-[#111111]"></span>
+                </a>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#koleksi" class="text-[#111111]/80 hover:text-[#111111] font-medium text-sm transition tracking-wide">Koleksi Retail</a>
+                <a href="#kemitraan" class="text-[#111111]/80 hover:text-[#111111] font-medium text-sm transition tracking-wide">Kemitraan B2B</a>
+                <a href="#ai-hub" class="text-[#111111]/80 hover:text-[#111111] font-semibold text-sm transition tracking-wide flex items-center gap-1 text-[#111111]">
+                    <span class="bg-amber-600 text-[#F4F1EA] text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-widest animate-pulse">AI</span>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="#keunggulan" class="text-[#111111]/80 hover:text-[#111111] font-medium text-sm transition tracking-wide">Mengapa Kami</a>
+                <a href="#faq" class="text-[#111111]/80 hover:text-[#111111] font-medium text-sm transition tracking-wide">FAQ</a>
+            </div>
+
+            <!-- Header CTA buttons -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#kemitraan" class="text-sm font-semibold border-b-2 border-[#111111] hover:border-transparent pb-0.5 transition">
+                    Gabung Reseller
+                </a>
+                <a href="#koleksi" class="bg-[#111111] text-white hover:bg-neutral-800 px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide transition shadow-lg shadow-black/10">
+                    Beli Eceran
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="p-2 rounded-lg text-neutral-800 focus:outline-none hover:bg-[#D8D2C4]/20" aria-label="Toggle Menu">
+                    <i data-lucide="menu" id="menu-icon-open" class="h-6 w-6"></i>
+                    <i data-lucide="x" id="menu-icon-close" class="h-6 w-6 hidden"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#F4F1EA] border-t border-[#D8D2C4]/30 px-4 pt-4 pb-6 space-y-3 absolute w-full left-0 transition-all duration-300 shadow-xl">
+        <a href="#koleksi" class="block px-3 py-2.5 rounded-xl hover:bg-[#D8D2C4]/30 text-base font-semibold transition" onclick="toggleMobileMenu()">Koleksi Retail</a>
+        <a href="#kemitraan" class="block px-3 py-2.5 rounded-xl hover:bg-[#D8D2C4]/30 text-base font-semibold transition" onclick="toggleMobileMenu()">Kemitraan B2B (Grosir/Reseller)</a>
+        <a href="#ai-hub" class="block px-3 py-2.5 rounded-xl bg-amber-500/10 hover:bg-[#D8D2C4]/30 text-base font-bold text-amber-800 transition" onclick="toggleMobileMenu()">⚡ kajja AI Assistant Hub</a>
+        <a href="#keunggulan" class="block px-3 py-2.5 rounded-xl hover:bg-[#D8D2C4]/30 text-base font-semibold transition" onclick="toggleMobileMenu()">Mengapa Kami</a>
+        <a href="#faq" class="block px-3 py-2.5 rounded-xl hover:bg-[#D8D2C4]/30 text-base font-semibold transition" onclick="toggleMobileMenu()">FAQ</a>
+        <div class="pt-4 border-t border-[#D8D2C4]/50 flex flex-col gap-3">
+            <button onclick="openCustomWaChat('B2B', 'Halo kajja studio, saya ingin bertanya tentang paket kemitraan/grosir.')" class="w-full text-center border-2 border-[#111111] hover:bg-[#111111]/5 text-[#111111] py-3 rounded-full font-bold text-sm tracking-wide transition">
+                Hubungi B2B
+            </button>
+            <a href="#koleksi" class="w-full text-center bg-[#111111] text-white py-3 rounded-full font-bold text-sm tracking-wide transition block" onclick="toggleMobileMenu()">
+                Beli Sekarang (B2C)
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative py-12 md:py-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info column -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <!-- Tagline Badge -->
+                <div class="inline-flex items-center gap-1.5 bg-[#D8D2C4]/40 border border-[#D8D2C4] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#111111]">
+                    <i data-lucide="sparkles" class="h-3.5 w-3.5 text-[#111111]"></i>
+                    Premium Minimalist Wear for 15-30 Years Old
+                </div>
+                
+                <!-- Main Header Title -->
+                <h1 class="font-syne text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none text-[#111111]">
+                    Gaya Simpel,<br>Tampil Maksimal.
+                </h1>
+                
+                <!-- Subtext description -->
+                <p class="text-base sm:text-lg md:text-xl text-[#111111]/75 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                    Setelan polo dan celana matching esensial untuk harianmu. Nyaman untuk nongkrong santai, rapi dan rapi untuk kuliah. Didesain instan tanpa ribet padu padan!
+                </p>
+                
+                <!-- Action Buttons: B2C & B2B split focus -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <!-- B2C CTA -->
+                    <a href="#koleksi" class="group bg-[#111111] hover:bg-neutral-800 text-[#F4F1EA] px-8 py-4 rounded-full font-bold tracking-wide text-center transition flex items-center justify-center gap-3 shadow-xl shadow-black/10">
+                        <span>Beli Eceran (B2C)</span>
+                        <i data-lucide="arrow-right" class="h-4 w-4 transition group-hover:translate-x-1"></i>
+                    </a>
+                    
+                    <!-- B2B CTA -->
+                    <a href="#kemitraan" class="border-2 border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-[#F4F1EA] px-8 py-4 rounded-full font-bold tracking-wide text-center transition flex items-center justify-center gap-2">
+                        <i data-lucide="users" class="h-4 w-4"></i>
+                        <span>Grosir & Reseller (B2B)</span>
+                    </a>
+                </div>
+
+                <!-- Trusted/Feature row -->
+                <div class="pt-8 border-t border-[#D8D2C4]/50 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
+                    <div>
+                        <div class="font-syne text-2xl font-bold">100%</div>
+                        <div class="text-xs text-[#111111]/60 font-medium">Bahan Premium</div>
+                    </div>
+                    <div>
+                        <div class="font-syne text-2xl font-bold">12+</div>
+                        <div class="text-xs text-[#111111]/60 font-medium">Varian Warna</div>
+                    </div>
+                    <div>
+                        <div class="font-syne text-2xl font-bold">3rb+</div>
+                        <div class="text-xs text-[#111111]/60 font-medium">Pcs Terjual</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual Image Graphic column -->
+            <div class="lg:col-span-5 relative">
+                <!-- Background decorative elements -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#D8D2C4] to-transparent rounded-3xl -rotate-3 scale-102 opacity-50 blur-sm"></div>
+                
+                <!-- Main Aesthetic Fashion Photo Mockup -->
+                <div class="relative bg-white rounded-3xl overflow-hidden shadow-2xl border-4 border-[#D8D2C4]/20">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80" 
+                         alt="kajja studio minimal wear modeling" 
+                         class="w-full h-[350px] sm:h-[450px] object-cover object-center filter grayscale contrast-110 hover:scale-105 transition duration-700"
+                         onerror="this.src='https://placehold.co/800x1000/e6e3da/111111?text=Aesthetic+Matching+Set'">
+                    
+                    <!-- Overlay label info card -->
+                    <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl flex items-center justify-between border border-[#D8D2C4]/20 shadow-lg">
+                        <div>
+                            <p class="text-xs text-neutral-500 font-semibold tracking-wide uppercase">Rilis Minggu Ini</p>
+                            <h3 class="font-bold text-base text-[#111111]">kajja Signature Polo Set</h3>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs line-through text-neutral-400">Rp 249k</span>
+                            <p class="font-extrabold text-[#111111]">Rp 169.000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Section Value Proposition / Keunggulan Produk -->
+<section id="keunggulan" class="py-16 bg-[#EBE5DA] border-t border-b border-[#D8D2C4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Text -->
+        <div class="max-w-3xl mx-auto text-center mb-12">
+            <h2 class="font-syne text-3xl sm:text-4xl font-extrabold tracking-tight">
+                Dirancang Sempurna Untuk Anak Muda Dinamis
+            </h2>
+            <p class="text-neutral-600 mt-2 font-light">Membantu kamu tampil profesional tanpa ribet padu padan warna yang salah.</p>
+        </div>
+
+        <!-- 3-Column Premium Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-[#F4F1EA] p-8 rounded-2xl border border-[#D8D2C4]/60 shadow-sm hover:shadow-md transition duration-300 flex flex-col items-center text-center">
+                <div class="w-14 h-14 rounded-full bg-[#111111] flex items-center justify-center text-[#F4F1EA] mb-6">
+                    <i data-lucide="sparkles" class="h-6 w-6"></i>
+                </div>
+                <h3 class="font-syne text-lg font-bold mb-3">Perfect Match (Sudah 1 Set)</h3>
+                <p class="text-sm text-neutral-600 font-light leading-relaxed">
+                    Tidak perlu pusing lagi memikirkan paduan warna baju dan celana. Setelan polo kami dipotong dengan warna selaras yang langsung siap pakai ke mana saja.
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="bg-[#F4F1EA] p-8 rounded-2xl border border-[#D8D2C4]/60 shadow-sm hover:shadow-md transition duration-300 flex flex-col items-center text-center">
+                <div class="w-14 h-14 rounded-full bg-[#111111] flex items-center justify-center text-[#F4F1EA] mb-6">
+                    <i data-lucide="feather" class="h-6 w-6"></i>
+                </div>
+                <h3 class="font-syne text-lg font-bold mb-3">Premium Comfort</h3>
+                <p class="text-sm text-neutral-600 font-light leading-relaxed">
+                    Terbuat dari material rajut berpori mikro yang super adem, menyerap keringat ekstra kuat. Sangat ramah untuk iklim tropis perkotaan.
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="bg-[#F4F1EA] p-8 rounded-2xl border border-[#D8D2C4]/60 shadow-sm hover:shadow-md transition duration-300 flex flex-col items-center text-center">
+                <div class="w-14 h-14 rounded-full bg-[#111111] flex items-center justify-center text-[#F4F1EA] mb-6">
+                    <i data-lucide="award" class="h-6 w-6"></i>
+                </div>
+                <h3 class="font-syne text-lg font-bold mb-3">Versatile Style</h3>
+                <p class="text-sm text-neutral-600 font-light leading-relaxed">
+                    Memiliki siluet yang *smart-casual*. Tali kancing rapi untuk tampilan formal di kelas, tapi punya fitting santai yang nyaman dipakai saat nongkrong di cafe.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- B2C Showcase Section: Katalog Retail -->
+<section id="koleksi" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Title & Filter-like text -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <span class="text-xs uppercase font-extrabold tracking-wider text-neutral-400">PILIHAN TERBAIK UNTUKMU</span>
+                <h2 class="font-syne text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-1">Koleksi Signature Set</h2>
+            </div>
+            <p class="text-neutral-500 font-light max-w-md text-sm md:text-right">
+                Pesan satuan (eceran) langsung dikirim hari ini. Desain khusus yang disesuaikan dengan proporsi tubuh anak muda Indonesia.
+            </p>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Product Card 1 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-[#D8D2C4]/30 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+                <!-- Product Image container -->
+                <div class="relative bg-neutral-100 overflow-hidden aspect-square flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?auto=format&fit=crop&w=800&q=80" 
+                         alt="kajja studio polo Sand Beige set" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                         onerror="this.src='https://placehold.co/600x600/f4f1ea/111111?text=Sand+Beige+Polo+Set'">
+                    <span class="absolute top-4 left-4 bg-[#111111] text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">Best Seller</span>
+                </div>
+                <!-- Description -->
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-syne text-xl font-bold mb-1">Polo Set - Sand Beige</h3>
+                        <p class="text-xs text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Atasan Polo + Celana Pendek Matching</p>
+                        <p class="text-sm text-neutral-600 font-light line-clamp-2">Warna beige ikonik kajja yang kalem, pas untuk dipakai ngopi santai atau bepergian harian.</p>
+                        <!-- Price tags -->
+                        <div class="flex items-baseline gap-2 mt-4">
+                            <span class="text-xl font-extrabold text-[#111111]">Rp 169.000</span>
+                            <span class="text-xs line-through text-neutral-400">Rp 249.000</span>
+                        </div>
+                    </div>
+                    <!-- Order CTA -->
+                    <button onclick="triggerOrderModal('Polo Set - Sand Beige', 169000, 'Sand Beige')" class="w-full mt-6 bg-[#111111] hover:bg-neutral-800 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition tracking-wider flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-bag" class="h-4 w-4"></i>
+                        Pesan via WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-[#D8D2C4]/30 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+                <!-- Product Image container -->
+                <div class="relative bg-neutral-100 overflow-hidden aspect-square flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80" 
+                         alt="kajja studio polo Charcoal Black set" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                         onerror="this.src='https://placehold.co/600x600/e6e3da/111111?text=Charcoal+Black+Polo+Set'">
+                    <span class="absolute top-4 left-4 bg-[#111111] text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">Edisi Terbatas</span>
+                </div>
+                <!-- Description -->
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-syne text-xl font-bold mb-1">Polo Set - Charcoal Black</h3>
+                        <p class="text-xs text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Atasan Polo + Celana Pendek Matching</p>
+                        <p class="text-sm text-neutral-600 font-light line-clamp-2">Sangat maskulin dan modis. Pilihan hitam pekat yang awet, tidak mudah kusam, dan memberikan efek slim.</p>
+                        <!-- Price tags -->
+                        <div class="flex items-baseline gap-2 mt-4">
+                            <span class="text-xl font-extrabold text-[#111111]">Rp 169.000</span>
+                            <span class="text-xs line-through text-neutral-400">Rp 249.000</span>
+                        </div>
+                    </div>
+                    <!-- Order CTA -->
+                    <button onclick="triggerOrderModal('Polo Set - Charcoal Black', 169000, 'Charcoal Black')" class="w-full mt-6 bg-[#111111] hover:bg-neutral-800 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition tracking-wider flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-bag" class="h-4 w-4"></i>
+                        Pesan via WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-[#D8D2C4]/30 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+                <!-- Product Image container -->
+                <div class="relative bg-neutral-100 overflow-hidden aspect-square flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" 
+                         alt="kajja studio polo Olive Sage set" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                         onerror="this.src='https://placehold.co/600x600/dcd9d0/111111?text=Olive+Sage+Polo+Set'">
+                    <span class="absolute top-4 left-4 bg-amber-800 text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">New Arrival</span>
+                </div>
+                <!-- Description -->
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-syne text-xl font-bold mb-1">Polo Set - Olive Sage</h3>
+                        <p class="text-xs text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Atasan Polo + Celana Pendek Matching</p>
+                        <p class="text-sm text-neutral-600 font-light line-clamp-2">Warna hijau bumi redup (earthy tone) yang unik, memberikan kesan asri, ceria, dan trendi secara instan.</p>
+                        <!-- Price tags -->
+                        <div class="flex items-baseline gap-2 mt-4">
+                            <span class="text-xl font-extrabold text-[#111111]">Rp 179.000</span>
+                            <span class="text-xs line-through text-neutral-400">Rp 259.000</span>
+                        </div>
+                    </div>
+                    <!-- Order CTA -->
+                    <button onclick="triggerOrderModal('Polo Set - Olive Sage', 179000, 'Olive Sage')" class="w-full mt-6 bg-[#111111] hover:bg-neutral-800 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition tracking-wider flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-bag" class="h-4 w-4"></i>
+                        Pesan via WhatsApp
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- B2B Section: Solusi Usaha & Komunitas (Kontras Tinggi - Hitam Premium) -->
+<section id="kemitraan" class="py-24 bg-[#111111] text-[#F4F1EA] relative overflow-hidden">
+    <!-- Decorative faint background circle -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#D8D2C4]/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-[#D8D2C4]/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <!-- Section Header Info -->
+        <div class="max-w-3xl mx-auto text-center mb-16 space-y-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#D8D2C4]">SOLUSI UNTUK RESELLER & KOMUNITAS (B2B)</span>
+            <h2 class="font-syne text-4xl sm:text-5xl font-extrabold tracking-tight">
+                Everyday Wear to Go.
+            </h2>
+            <p class="text-neutral-400 font-light text-base max-w-xl mx-auto">
+                Buka peluang bisnis fashion yang menguntungkan bersama kajja studio. Dapatkan pasokan berkualitas tinggi dengan sistem kerjasama yang sangat fleksibel.
+            </p>
+        </div>
+
+        <!-- Two main pillars for B2B collaboration -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            
+            <!-- Pillar 1: Reseller & Grosir -->
+            <div class="bg-neutral-900 border border-[#D8D2C4]/20 p-8 sm:p-10 rounded-3xl flex flex-col justify-between">
+                <div class="space-y-6">
+                    <div class="w-12 h-12 rounded-2xl bg-[#D8D2C4] text-black flex items-center justify-center">
+                        <i data-lucide="tag" class="h-6 w-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-syne text-2xl font-bold text-white mb-2">Sistem Grosir & Reseller</h3>
+                        <p class="text-neutral-400 text-sm font-light leading-relaxed">
+                            Mulai usaha fashion milikmu tanpa risiko besar. Kami menyediakan paket modal hemat bagi kamu mahasiswa atau pengusaha pemula yang mau menambah penghasilan.
+                        </p>
+                    </div>
+                    <!-- Benefits lists -->
+                    <ul class="space-y-3.5 text-sm text-neutral-300">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="h-4 w-4 text-[#D8D2C4]"></i>
+                            <span>Diskon khusus hingga 35% untuk reseller terdaftar</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="h-4 w-4 text-[#D8D2C4]"></i>
+                            <span>Minimal pembelian rendah (Mulai dari 6 Set saja)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="h-4 w-4 text-[#D8D2C4]"></i>
+                            <span>Akses materi promosi (foto studio bersih & video HD)</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <button onclick="openCustomWaChat('B2B - Grosir', 'Halo admin kajja studio, saya ingin info pendaftaran reseller & syarat grosir minimal order.')" class="mt-8 w-full bg-[#D8D2C4] hover:bg-white text-black font-bold py-4 px-6 rounded-2xl text-sm transition tracking-wider flex items-center justify-center gap-2">
+                    <span>Tanya Paket Grosir</span>
+                    <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+                </button>
+            </div>
+
+            <!-- Pillar 2: Custom Order / Seragam -->
+            <div class="bg-neutral-900 border border-[#D8D2C4]/20 p-8 sm:p-10 rounded-3xl flex flex-col justify-between">
+                <div class="space-y-6">
+                    <div class="w-12 h-12 rounded-2xl bg-[#D8D2C4] text-black flex items-center justify-center">
+                        <i data-lucide="palette" class="h-6 w-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-syne text-2xl font-bold text-white mb-2">Custom Kemeja & Seragam Komunitas</h3>
+                        <p class="text-neutral-400 text-sm font-light leading-relaxed">
+                            Butuh seragam kepanitiaan kampus, baju angkatan, atau kaos polo eksklusif untuk organisasi kamu? kajja studio melayani produksi kustom berkualitas tinggi.
+                        </p>
+                    </div>
+                    <!-- Benefits lists -->
+                    <ul class="space-y-3.5 text-sm text-neutral-300">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="h-4 w-4 text-[#D8D2C4]"></i>
+                            <span>Bisa kustom bordir, sablon presisi tinggi, dan warna khusus</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="h-4 w-4 text-[#D8D2C4]"></i>
+                            <span>Pilihan jenis kain terlengkap & bersertifikasi adem</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="h-4 w-4 text-[#D8D2C4]"></i>
+                            <span>Layanan konsultasi desain mockup gratis sebelum produksi</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <button onclick="openCustomWaChat('B2B - Custom', 'Halo admin kajja studio, saya mau berkonsultasi mengenai produksi seragam kustom/baju komunitas.')" class="mt-8 w-full bg-transparent border-2 border-[#D8D2C4] hover:bg-[#D8D2C4] hover:text-black text-[#D8D2C4] font-bold py-4 px-6 rounded-2xl text-sm transition tracking-wider flex items-center justify-center gap-2">
+                    <span>Konsultasi Desain Gratis</span>
+                    <i data-lucide="message-square" class="h-4 w-4"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Mini CTA Banner inside B2B -->
+        <div class="bg-gradient-to-r from-neutral-900 to-neutral-800 border border-neutral-700 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-1 text-center md:text-left">
+                <h4 class="font-syne text-lg font-bold text-white">Ingin Jadi Distributor Utama Kota Anda?</h4>
+                <p class="text-xs text-neutral-400 font-light">Dapatkan jaminan eksklusivitas wilayah dan perlindungan harga jual.</p>
+            </div>
+            <button onclick="openCustomWaChat('B2B - Distributor', 'Halo admin kajja studio, saya berniat menjadi perwakilan distributor resmi eksklusif untuk wilayah kota saya.')" class="bg-white hover:bg-[#D8D2C4] text-black font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider transition">
+                Daftar Distributor
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<!-- Section: AI Assistant Hub (B2C Virtual Stylist & B2B Business Planner) -->
+<section id="ai-hub" class="py-24 bg-[#EBE5DA] border-b border-[#D8D2C4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Title & Intro -->
+        <div class="max-w-3xl mx-auto text-center mb-12 space-y-3">
+            <div class="inline-flex items-center gap-1.5 bg-[#111111] text-[#F4F1EA] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                <i data-lucide="sparkles" class="h-3.5 w-3.5 text-amber-400 fill-current animate-spin-slow"></i>
+                Kajja AI Studio Hub
+            </div>
+            <h2 class="font-syne text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#111111]">
+                Konsultasi Cerdas Bersama AI
+            </h2>
+            <p class="text-neutral-600 font-light text-sm max-w-lg mx-auto">
+                Temukan gaya berpakaian esensialmu secara instan atau rancang kesuksesan bisnismu bersama teknologi AI tercanggih kami.
+            </p>
+        </div>
+
+        <!-- Main AI Card Hub Container -->
+        <div class="bg-white rounded-3xl border border-[#D8D2C4]/70 shadow-2xl overflow-hidden max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12">
+            
+            <!-- Tab Controls (Left Sidebar) -->
+            <div class="md:col-span-4 bg-neutral-900 text-[#F4F1EA] p-6 sm:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#D8D2C4]/20">
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-syne text-lg font-bold text-white tracking-tight">Pilih Layanan AI</h4>
+                        <p class="text-neutral-400 text-xs font-light mt-1">Kami menyediakan asisten cerdas untuk kebutuhan belanja (B2C) maupun bisnis (B2B).</p>
+                    </div>
+
+                    <!-- Tabs switcher buttons -->
+                    <div class="flex flex-row md:flex-col gap-2 w-full">
+                        <button onclick="switchAiTab('b2c-stylist')" id="tab-btn-b2c" class="flex-1 text-left px-4 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition flex items-center gap-2 border bg-white text-black border-transparent">
+                            <i data-lucide="palette" class="h-4 w-4"></i>
+                            <span>B2C: AI Stylist</span>
+                        </button>
+                        <button onclick="switchAiTab('b2b-planner')" id="tab-btn-b2b" class="flex-1 text-left px-4 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition flex items-center gap-2 border bg-transparent text-neutral-400 border-transparent hover:text-white">
+                            <i data-lucide="trending-up" class="h-4 w-4"></i>
+                            <span>B2B: AI Planner</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hidden md:block pt-8 border-t border-neutral-800 text-[10px] text-neutral-500 font-light">
+                    Powered by Google Gemini 3 Flash. Seluruh data hasil analisis AI dapat langsung disalin ke WhatsApp toko.
+                </div>
+            </div>
+
+            <!-- Tab Content (Right Content Area) -->
+            <div class="md:col-span-8 p-6 sm:p-10 bg-[#F4F1EA]/50 flex flex-col justify-between min-h-[480px]">
+                
+                <!-- Tab B2C Stylist Form -->
+                <div id="ai-b2c-pane" class="space-y-5">
+                    <div class="space-y-1">
+                        <h3 class="font-syne text-2xl font-bold text-[#111111]">AI Virtual Style Assistant 🎨</h3>
+                        <p class="text-xs text-neutral-500 font-light">Temukan setelan polo & celana kajja yang pas untuk profil tubuh dan acaramu.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Acara / Keperluan:</label>
+                            <select id="stylist-occasion" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                                <option value="Nongkrong Santai di Coffee Shop">☕ Nongkrong Santai di Cafe</option>
+                                <option value="Kencan Pertama (First Date)">✨ Kencan Pertama (First Date)</option>
+                                <option value="Kuliah & Presentasi Kampus">📚 Kuliah / Kelas Kampus</option>
+                                <option value="Liburan Santai / Beach Trip">🏖️ Liburan Santai ke Pantai</option>
+                                <option value="Acara Semi-Formal Keluarga">🏡 Acara Semi-Formal Keluarga</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Warna Favorit Vibe:</label>
+                            <select id="stylist-vibe" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                                <option value="Calem & Earthy (Warm)">Sand Beige / Soft Earthy</option>
+                                <option value="Maskulin, Ramping & Gelap">Charcoal Black / Slim Dark</option>
+                                <option value="Unik, Trendi & Fresh">Olive Sage / Fresh Modern</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Berat Badan (Kg):</label>
+                            <input type="number" id="stylist-weight" value="65" min="30" max="150" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-bold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Tinggi Badan (Cm):</label>
+                            <input type="number" id="stylist-height" value="170" min="100" max="230" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-bold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                        </div>
+                    </div>
+
+                    <button onclick="generateAiStylist()" class="w-full bg-[#111111] hover:bg-neutral-800 text-[#F4F1EA] font-extrabold py-3.5 px-6 rounded-xl text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg shadow-black/10">
+                        <i data-lucide="sparkles" class="h-4 w-4 text-amber-400"></i>
+                        Analisis Gaya Berpakaian Saya
+                    </button>
+                </div>
+
+                <!-- Tab B2B Planner Form (Hidden on load) -->
+                <div id="ai-b2b-pane" class="space-y-5 hidden">
+                    <div class="space-y-1">
+                        <h3 class="font-syne text-2xl font-bold text-[#111111]">AI Reseller Business Planner 📈</h3>
+                        <p class="text-xs text-neutral-500 font-light">Rancang simulasi perolehan keuntungan & strategi promosi jualan fashion Anda.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Rencana Modal Awal:</label>
+                            <select id="planner-budget" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                                <option value="Rp 1 Juta - Rp 2 Juta (Grosir Awal 6-12 Set)">Rp 1 - 2 Juta (Reseller Pemula)</option>
+                                <option value="Rp 3 Juta - Rp 5 Juta (Grosir Sedang 18-30 Set)">Rp 3 - 5 Juta (Grosir Menengah)</option>
+                                <option value="Rp 5 Juta - Rp 10 Juta (Paket Grosir Besar & Distributor)">Rp 5 - 10 Juta (Distributor Skala Kota)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Media Pemasaran Utama:</label>
+                            <select id="planner-channel" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                                <option value="TikTok Shop & Instagram Reels">🎥 TikTok Shop & IG Reels (Video Pendek)</option>
+                                <option value="Jualan Offline Langsung di Kampus / Komunitas">🏫 Offline di Kampus / Antar Teman</option>
+                                <option value="Grup Chat Whatsapp & Marketplace">💬 WhatsApp Group & Shopee/Tokopedia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Kota / Wilayah Target Jualan:</label>
+                        <input type="text" id="planner-location" placeholder="Masukkan Kota Anda (Contoh: Bandung, Malang, Makassar...)" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                    </div>
+
+                    <button onclick="generateAiPlanner()" class="w-full bg-[#111111] hover:bg-neutral-800 text-[#F4F1EA] font-extrabold py-3.5 px-6 rounded-xl text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg shadow-black/10">
+                        <i data-lucide="sparkles" class="h-4 w-4 text-emerald-400"></i>
+                        Simulasi Rencana Bisnis Saya
+                    </button>
+                </div>
+
+                <!-- AI Output Display Box (Initially Hidden) -->
+                <div id="ai-result-box" class="mt-8 bg-white border border-[#D8D2C4] rounded-2xl p-5 sm:p-6 shadow-md hidden flex flex-col justify-between">
+                    <div class="flex items-center justify-between border-b border-neutral-100 pb-3 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Hasil Rekomendasi Cerdas AI</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="copyAiResult()" class="p-1.5 hover:bg-neutral-100 rounded-lg text-neutral-400 hover:text-[#111111] transition" title="Salin Hasil">
+                                <i data-lucide="copy" class="h-4 w-4"></i>
+                            </button>
+                            <button onclick="closeAiResult()" class="p-1.5 hover:bg-neutral-100 rounded-lg text-neutral-400 hover:text-red-500 transition" title="Tutup">
+                                <i data-lucide="x" class="h-4 w-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Text Area (Generated Content inside) -->
+                    <div id="ai-response-text" class="text-xs text-neutral-800 font-light leading-relaxed space-y-3 max-h-[220px] overflow-y-auto pr-2">
+                        <!-- Content injected via JS -->
+                    </div>
+
+                    <!-- Direct Chat action CTA -->
+                    <button id="ai-whatsapp-cta" class="w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition flex items-center justify-center gap-2">
+                        <i data-lucide="message-square" class="h-4 w-4 fill-current"></i>
+                        <span>Kirim Hasil Analisis Ini Ke Admin WA</span>
+                    </button>
+                </div>
+
+                <!-- Loading State Block -->
+                <div id="ai-loading" class="hidden mt-8 py-12 flex flex-col items-center justify-center gap-3 bg-white/40 border border-dashed border-[#D8D2C4] rounded-2xl">
+                    <div class="w-10 h-10 border-4 border-neutral-300 border-t-[#111111] rounded-full animate-spin"></div>
+                    <p class="text-xs font-bold text-neutral-600 tracking-wide uppercase animate-pulse">Menghubungi Otak AI kajja...</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Testimonial Section (Social Proof) -->
+<section class="py-20 bg-[#F4F1EA]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header text -->
+        <div class="max-w-3xl mx-auto text-center mb-16 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#111111]/40">APA KATA MEREKA?</span>
+            <h2 class="font-syne text-3xl sm:text-4xl font-extrabold tracking-tight">Komentar Dari Teman kajja</h2>
+            <p class="text-neutral-500 font-light text-sm">Sudah ribet ganti baju terus? Baca review jujur pelanggan loyal kami!</p>
+        </div>
+
+        <!-- 3-Column Reviews Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Card 1 -->
+            <div class="bg-[#EBE5DA] p-8 rounded-2xl border border-[#D8D2C4]/50 relative">
+                <div class="flex items-center gap-1 text-[#111111] mb-4">
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                </div>
+                <p class="text-neutral-700 font-light text-sm italic leading-relaxed mb-6">
+                    "Beneran ngebantu banget buat mager mikirin baju pagi-pagi sebelum kuliah. Tinggal pakai setelan polo dari kajja langsung kelihatan rapi tapi rasanya seadem pakai baju rumah. Udah beli 3 warna berbeda!"
+                </p>
+                <div>
+                    <h4 class="font-bold text-[#111111] text-sm">Dimas Pratama</h4>
+                    <p class="text-xs text-neutral-500 font-medium">Mahasiswa PTN, Jakarta (21 thn)</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-[#EBE5DA] p-8 rounded-2xl border border-[#D8D2C4]/50 relative">
+                <div class="flex items-center gap-1 text-[#111111] mb-4">
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                </div>
+                <p class="text-neutral-700 font-light text-sm italic leading-relaxed mb-6">
+                    "Awalnya coba beli sampel grosir untuk angkatan kampus. Jahitan rapi bgt, respon CS juga super cepat ketika ditanyain tentang bordir logo. Akhirnya kemaren deal order 100 pcs dan anak-anak puas semua!"
+                </p>
+                <div>
+                    <h4 class="font-bold text-[#111111] text-sm">Fiona Alysha</h4>
+                    <p class="text-xs text-neutral-500 font-medium">Ketua Panitia Makrab, Bandung (20 thn)</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-[#EBE5DA] p-8 rounded-2xl border border-[#D8D2C4]/50 relative">
+                <div class="flex items-center gap-1 text-[#111111] mb-4">
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                    <i data-lucide="star" class="h-4.5 w-4.5 fill-current"></i>
+                </div>
+                <p class="text-neutral-700 font-light text-sm italic leading-relaxed mb-6">
+                    "Bahannya juara, gak gampang lecek habis dicuci. Dipakai buat nongkrong sore di outdoor pun gak gerah sama sekali. Worth every penny, bakalan langganan eceran terus!"
+                </p>
+                <div>
+                    <h4 class="font-bold text-[#111111] text-sm">Arif Rahman</h4>
+                    <p class="text-xs text-neutral-500 font-medium">Creative Designer, Surabaya (25 thn)</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Section FAQ (Frequently Asked Questions) -->
+<section id="faq" class="py-20 bg-[#EBE5DA] border-t border-[#D8D2C4]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- FAQ Head -->
+        <div class="text-center mb-12">
+            <h2 class="font-syne text-3xl font-extrabold tracking-tight text-[#111111]">Pertanyaan yang Sering Diajukan</h2>
+            <p class="text-sm text-neutral-600 font-light mt-2">Dapatkan info instan mengenai sistem jual, pengiriman, dan kustom baju kami.</p>
+        </div>
+
+        <!-- Accordion container -->
+        <div class="space-y-4">
+            
+            <!-- Accordion Item 1 -->
+            <div class="bg-[#F4F1EA] rounded-2xl border border-[#D8D2C4]/60 overflow-hidden transition duration-300">
+                <button onclick="toggleFaq(1)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+                    <span class="font-syne font-bold text-base text-[#111111]">Bahan kain apa yang digunakan kajja studio?</span>
+                    <i data-lucide="chevron-down" id="faq-icon-1" class="h-5 w-5 text-neutral-600 transition duration-300"></i>
+                </button>
+                <div id="faq-ans-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                    <div class="px-6 pb-6 text-sm text-neutral-600 font-light leading-relaxed">
+                        Kami menggunakan kain Premium Cotton Pique Rajut terbaik dengan kerapatan mikro pori-pori. Karakteristik bahannya sangat lembut di kulit, tebal namun tidak kaku, serta memiliki elastisitas alami tinggi sehingga awet untuk dicuci berulang kali.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 2 -->
+            <div class="bg-[#F4F1EA] rounded-2xl border border-[#D8D2C4]/60 overflow-hidden transition duration-300">
+                <button onclick="toggleFaq(2)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+                    <span class="font-syne font-bold text-base text-[#111111]">Berapa minimal pemesanan untuk harga grosir (B2B)?</span>
+                    <i data-lucide="chevron-down" id="faq-icon-2" class="h-5 w-5 text-neutral-600 transition duration-300"></i>
+                </button>
+                <div id="faq-ans-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                    <div class="px-6 pb-6 text-sm text-neutral-600 font-light leading-relaxed">
+                        Untuk mendapatkan diskon grosir awal (kategori Reseller), minimal pemesanan hanya 6 Setelan. Jika Anda memesan di atas 24 Set, Anda berhak mendapatkan harga grosir VIP dengan diskon lebih besar yang sangat bersahabat untuk dipasarkan kembali.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 3 -->
+            <div class="bg-[#F4F1EA] rounded-2xl border border-[#D8D2C4]/60 overflow-hidden transition duration-300">
+                <button onclick="toggleFaq(3)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+                    <span class="font-syne font-bold text-base text-[#111111]">Apakah menerima pengiriman ke seluruh wilayah Indonesia?</span>
+                    <i data-lucide="chevron-down" id="faq-icon-3" class="h-5 w-5 text-neutral-600 transition duration-300"></i>
+                </button>
+                <div id="faq-ans-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                    <div class="px-6 pb-6 text-sm text-neutral-600 font-light leading-relaxed">
+                        Ya, kami melayani pengiriman dari Sabang sampai Merauke bekerja sama dengan kargo terpercaya (JNE, J&T, SiCepat, Kargo Wahana, hingga Indah Cargo untuk paket grosir besar) guna menjamin ongkos kirim termurah bagi pembeli.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 4 -->
+            <div class="bg-[#F4F1EA] rounded-2xl border border-[#D8D2C4]/60 overflow-hidden transition duration-300">
+                <button onclick="toggleFaq(4)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+                    <span class="font-syne font-bold text-base text-[#111111]">Bagaimana skema pembayaran dan retur garansi?</span>
+                    <i data-lucide="chevron-down" id="faq-icon-4" class="h-5 w-5 text-neutral-600 transition duration-300"></i>
+                </button>
+                <div id="faq-ans-4" class="max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                    <div class="px-6 pb-6 text-sm text-neutral-600 font-light leading-relaxed">
+                        Kami menjamin retur ganti baru gratis jika barang yang Anda terima terdapat cacat produksi (jahitan terlepas atau berlubang) dengan melampirkan video unboxing. Pembayaran resmi dikirimkan langsung ke rekening resmi beratasnamakan CV kajja studio.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="bg-[#111111] text-white pt-16 pb-24 border-t border-neutral-800 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            
+            <!-- Column 1: Brand Info -->
+            <div class="md:col-span-2 space-y-4">
+                <a href="#" class="font-syne text-3xl font-extrabold tracking-tight text-[#F4F1EA] flex items-center gap-2">
+                    kajja studio<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#D8D2C4]"></span>
+                </a>
+                <p class="text-neutral-400 font-light text-sm max-w-sm leading-relaxed">
+                    Setelan kasual matching premium untuk aktivitas perkotaan harian kawula muda. Berkomitmen menghadirkan fashion bernilai tinggi yang ramah kantong.
+                </p>
+                <!-- Social media minimal icon array -->
+                <div class="flex items-center space-x-4 pt-2">
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-[#D8D2C4] hover:text-black transition">
+                        <i data-lucide="instagram" class="h-4.5 w-4.5"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" class="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-[#D8D2C4] hover:text-black transition">
+                        <i data-lucide="music" class="h-4.5 w-4.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Navigation -->
+            <div class="space-y-4">
+                <h4 class="font-syne text-sm font-bold tracking-wider text-[#D8D2C4] uppercase">Navigasi</h4>
+                <ul class="space-y-2.5 text-neutral-400 text-sm font-light">
+                    <li><a href="#koleksi" class="hover:text-white transition">Koleksi Eceran</a></li>
+                    <li><a href="#kemitraan" class="hover:text-white transition">Paket Kemitraan (B2B)</a></li>
+                    <li><a href="#ai-hub" class="hover:text-white transition">kajja AI Assistant</a></li>
+                    <li><a href="#keunggulan" class="hover:text-white transition">Kelebihan Kami</a></li>
+                    <li><a href="#faq" class="hover:text-white transition">FAQ Pelanggan</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Jam Operasional & Alamat -->
+            <div class="space-y-4">
+                <h4 class="font-syne text-sm font-bold tracking-wider text-[#D8D2C4] uppercase">Studio & Kontak</h4>
+                <ul class="space-y-2.5 text-neutral-400 text-sm font-light">
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="map-pin" class="h-4 w-4 mt-1 text-[#D8D2C4] flex-shrink-0"></i>
+                        <span>Kawasan Kreatif UMKM, Kec. Menteng, Kota Jakarta Pusat, DKI Jakarta 10310</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="clock" class="h-4 w-4 text-[#D8D2C4]"></i>
+                        <span>Setiap Hari (09.00 - 18.00 WIB)</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Copyright separator line -->
+        <div class="pt-8 border-t border-neutral-800 text-center text-xs text-neutral-500 font-light flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 kajja studio. Semua hak dilindungi. Dirancang untuk UMKM Indonesia.</p>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="hover:text-white transition">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-white transition">Syarat & Ketentuan</a>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<!-- Floating Action Button WhatsApp (Tetap Melayang Di Kanan Bawah) -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-none">
+    
+    <!-- Bubble Chat Promo Melayang -->
+    <div id="floating-promo" class="pointer-events-auto bg-white text-[#111111] px-4 py-2.5 rounded-2xl shadow-2xl border border-[#D8D2C4]/50 text-xs font-semibold flex items-center gap-2.5 animate-bounce mb-1">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+        <span>Butuh bantuan cepat? Hubungi Admin kami!</span>
+        <button onclick="closePromoBubble()" class="text-neutral-400 hover:text-black">
+            <i data-lucide="x" class="h-3.5 w-3.5"></i>
+        </button>
+    </div>
+
+    <!-- Main Green WhatsApp Button -->
+    <button onclick="openCustomWaChat('Floating-General', 'Halo admin kajja studio, saya butuh informasi lebih lanjut mengenai produknya.')" 
+            class="pointer-events-auto bg-emerald-600 hover:bg-emerald-500 hover:scale-105 active:scale-95 text-white p-4 rounded-full shadow-2xl transition duration-300 flex items-center justify-center group"
+            title="Chat WhatsApp Sekarang">
+        <i data-lucide="message-circle" class="h-7 w-7 fill-current"></i>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-out font-bold text-sm tracking-wider uppercase ml-0 group-hover:ml-2">Chat WA</span>
+    </button>
+</div>
+
+<!-- B2C Checkout Modal Popup Form (Gaya Minimalis Elegan) -->
+<div id="order-modal" class="fixed inset-0 bg-[#111111]/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-[#F4F1EA] w-full max-w-lg rounded-3xl p-6 sm:p-8 border border-[#D8D2C4]/50 shadow-2xl relative transform scale-95 transition-transform duration-300" id="modal-content">
+        
+        <!-- Close Button -->
+        <button onclick="closeOrderModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#111111] transition">
+            <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+
+        <!-- Product Summary Header Inside Modal -->
+        <div class="mb-6">
+            <span class="text-[10px] font-bold tracking-wider uppercase bg-[#111111] text-[#F4F1EA] px-3 py-1 rounded-full">Konfirmasi Pesanan</span>
+            <h3 id="modal-product-title" class="font-syne text-2xl font-bold mt-3 text-[#111111]">Nama Produk</h3>
+            <p id="modal-product-price" class="text-lg font-extrabold text-neutral-800 mt-1">Rp 169.000</p>
+        </div>
+
+        <!-- Form fields -->
+        <form id="checkout-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
+            <input type="hidden" id="form-product-name">
+            <input type="hidden" id="form-product-price">
+
+            <!-- Varian warna (Auto select based on product) -->
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Varian Warna:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="form-product-color" readonly class="w-full bg-[#EBE5DA] border border-[#D8D2C4] text-neutral-800 font-semibold rounded-xl px-4 py-3 text-sm focus:outline-none">
+                </div>
+            </div>
+
+            <!-- Size Selection Dropdown -->
+            <div>
+                <label for="size-select" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Pilih Ukuran (Size):</label>
+                <select id="size-select" required class="w-full bg-white border border-[#D8D2C4] text-[#111111] font-medium rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                    <option value="" disabled selected>Pilih ukuran anda...</option>
+                    <option value="S">Ukuran S (Rekomendasi Berat 45-55kg)</option>
+                    <option value="M">Ukuran M (Rekomendasi Berat 55-65kg)</option>
+                    <option value="L">Ukuran L (Rekomendasi Berat 65-75kg)</option>
+                    <option value="XL">Ukuran XL (Rekomendasi Berat 75-85kg)</option>
+                </select>
+            </div>
+
+            <!-- Custom Quantity Input -->
+            <div>
+                <label for="quantity-input" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Jumlah (Pcs):</label>
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="adjustQty(-1)" class="w-10 h-10 bg-white border border-[#D8D2C4] hover:bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-lg text-neutral-700 focus:outline-none">-</button>
+                    <input type="number" id="quantity-input" value="1" min="1" readonly class="w-16 h-10 bg-white border border-[#D8D2C4] text-center font-bold text-sm text-[#111111] rounded-xl focus:outline-none">
+                    <button type="button" onclick="adjustQty(1)" class="w-10 h-10 bg-white border border-[#D8D2C4] hover:bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-lg text-neutral-700 focus:outline-none">+</button>
+                </div>
+            </div>
+
+            <!-- Buyer Details for easy copy -->
+            <div class="space-y-3 pt-2">
+                <div>
+                    <label for="buyer-name" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Nama Penerima:</label>
+                    <input type="text" id="buyer-name" required placeholder="Masukkan nama Anda..." class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#111111] focus:outline-none transition">
+                </div>
+                <div>
+                    <label for="buyer-address" class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Alamat Pengiriman:</label>
+                    <textarea id="buyer-address" required placeholder="Sebutkan alamat lengkap penerima beserta kota/kab..." rows="2" class="w-full bg-white border border-[#D8D2C4] text-[#111111] rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#111111] focus:outline-none transition resize-none"></textarea>
+                </div>
+            </div>
+
+            <!-- Confirm submit button -->
+            <button type="submit" class="w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-4 rounded-xl text-sm transition tracking-wider flex items-center justify-center gap-2 shadow-lg">
+                <i data-lucide="message-circle" class="h-4 w-4 fill-current"></i>
+                Lanjutkan ke WhatsApp
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<!-- SUCCESS TOAST (Custom message box pengganti alert) -->
+<div id="toast" class="fixed bottom-6 left-6 z-50 bg-[#111111] text-[#F4F1EA] px-5 py-3 rounded-2xl border border-[#D8D2C4]/30 shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 ease-out">
+    <div class="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white text-xs font-bold">✓</div>
+    <span id="toast-msg" class="text-xs font-semibold">Tindakan berhasil!</span>
+</div>
+
+<script>
+    // Global WhatsApp state (Dapat disesuaikan dinamis)
+    let waNumber = "628123456789";
+    let activeAiTab = "b2c-stylist";
+    let currentGeneratedResult = "";
+
+    // Initialize Lucide icons
+    window.onload = function() {
+        lucide.createIcons();
+        
+        // Memuat nomor WhatsApp dari penyimpanan lokal jika tersedia
+        const savedNumber = localStorage.getItem('kajja_wa_number');
+        if (savedNumber) {
+            waNumber = savedNumber;
+            document.getElementById('wa-input').value = savedNumber;
+        }
+    }
+
+    // Switch between AI Assistant Modes
+    function switchAiTab(tabName) {
+        activeAiTab = tabName;
+        const paneB2C = document.getElementById('ai-b2c-pane');
+        const paneB2B = document.getElementById('ai-b2b-pane');
+        const btnB2C = document.getElementById('tab-btn-b2c');
+        const btnB2B = document.getElementById('tab-btn-b2b');
+
+        // Hide result box when switching tabs
+        closeAiResult();
+
+        if (tabName === "b2c-stylist") {
+            paneB2C.classList.remove('hidden');
+            paneB2B.classList.add('hidden');
+            
+            btnB2C.className = "flex-1 text-left px-4 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition flex items-center gap-2 border bg-white text-black border-transparent";
+            btnB2B.className = "flex-1 text-left px-4 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition flex items-center gap-2 border bg-transparent text-neutral-400 border-transparent hover:text-white";
+        } else {
+            paneB2C.classList.add('hidden');
+            paneB2B.classList.remove('hidden');
+
+            btnB2C.className = "flex-1 text-left px-4 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition flex items-center gap-2 border bg-transparent text-neutral-400 border-transparent hover:text-white";
+            btnB2B.className = "flex-1 text-left px-4 py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition flex items-center gap-2 border bg-white text-black border-transparent";
+        }
+        lucide.createIcons();
+    }
+
+    // Secure fetch and retry utility for the Gemini Live/Flash API 
+    async function callGeminiAPI(systemPrompt, userQuery) {
+        const apiKey = ""; // Left empty as Canvas runtime will dynamically inject the credentials
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        const payload = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: {
+                parts: [{ text: systemPrompt }]
+            },
+        };
+
+        let retries = 3;
+        let delay = 1000;
+
+        for (let attempt = 0; attempt < retries; attempt++) {
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI tidak menghasilkan respon yang valid.";
+                }
+
+                // If rate limited, initiate exponential backoff without console error logging
+                if (response.status === 429) {
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                    continue;
+                }
+
+                throw new Error(`Koneksi API gagal dengan status: ${response.status}`);
+            } catch (err) {
+                if (attempt === retries - 1) {
+                    throw err;
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+        }
+        throw new Error("Terjadi gangguan koneksi berulang kali saat menghubungi AI.");
+    }
+
+    // Generate B2C Styling Advice via Gemini API
+    async function generateAiStylist() {
+        const occasion = document.getElementById('stylist-occasion').value;
+        const vibe = document.getElementById('stylist-vibe').value;
+        const weight = document.getElementById('stylist-weight').value;
+        const height = document.getElementById('stylist-height').value;
+
+        const loader = document.getElementById('ai-loading');
+        const resultBox = document.getElementById('ai-result-box');
+        
+        loader.classList.remove('hidden');
+        resultBox.classList.add('hidden');
+
+        const systemPrompt = 
+`Anda adalah 'kajja AI Stylist', pakar penata busana minimalis & Gen-Z untuk brand setelan minimalis 'kajja studio'.
+Detail koleksi kami:
+1. Polo Set - Sand Beige (Aesthetic, kalem, ramah lingkungan, cocok untuk cafe nongkrong santai).
+2. Polo Set - Charcoal Black (Maskulin, ramping, tegas, sangat fleksibel, elegan).
+3. Polo Set - Olive Sage (Unik, segar, bergaya retro-modern, menarik perhatian).
+
+Ukuran Panduan Berdasarkan Berat Badan:
+- S: 45 - 55 kg
+- M: 55 - 65 kg
+- L: 65 - 75 kg
+- XL: 75 - 85 kg
+
+Berikan rekomendasi berpakaian secara terperinci untuk user. Tentukan warna apa dari 3 warna kajja studio yang paling tepat dengan keperluan acaranya, tentukan secara pasti ukuran (S/M/L/XL) yang cocok untuk berat & tingginya, serta berikan 3 tips paduan aksesoris pelengkap (sepatu/jam tangan/kacamata).
+Gunakan gaya bahasa anak muda Indonesia (lo-fi vibe, asyik, santai, memakai kata "kamu") namun tetap informatif dan persuasif untuk memicu pembelian.`;
+
+        const query = `Halo kajja AI Stylist! Profil saya:
+- Tinggi: ${height} cm
+- Berat: ${weight} kg
+- Rencana Acara: ${occasion}
+- Warna Vibe Favorit: ${vibe}
+Berikan rekomendasi terbaikmu!`;
+
+        try {
+            const result = await callGeminiAPI(systemPrompt, query);
+            currentGeneratedResult = result;
+            renderAiResponse(result);
+            setupWhatsappCta("B2C - AI Stylist Result", `Hasil Rekomendasi AI Stylist:\n\n${result}`);
+        } catch (error) {
+            showToast("Gagal memuat rekomendasi AI. Coba lagi beberapa saat.");
+        } finally {
+            loader.classList.add('hidden');
+        }
+    }
+
+    // Generate B2B Business projection report via Gemini API
+    async function generateAiPlanner() {
+        const budget = document.getElementById('planner-budget').value;
+        const channel = document.getElementById('planner-channel').value;
+        const location = document.getElementById('planner-location').value.trim();
+
+        if (!location) {
+            showToast("Harap isi target Kota/Wilayah jualan Anda!");
+            return;
+        }
+
+        const loader = document.getElementById('ai-loading');
+        const resultBox = document.getElementById('ai-result-box');
+        
+        loader.classList.remove('hidden');
+        resultBox.classList.add('hidden');
+
+        const systemPrompt = 
+`Anda adalah 'kajja AI Business Planner', konsultan strategi usaha ritel fashion profesional untuk 'kajja studio'.
+Tugas Anda adalah merumuskan rencana simulasi usaha reseller baju matching set polo dari kajja studio yang prospektif untuk calon mitra muda.
+Harga Eceran Normal kajja: Rp 169.000 - Rp 179.000 per set.
+Skema Harga Kemitraan:
+- Paket Reseller Awal (Diskon sampai 35% dengan minimal pembelian rendah hanya 6 set).
+
+Sajikan analisis taktis mencakup:
+1. Skema Pembelian Awal yang paling optimal untuk budget calon mitra.
+2. Estimasi Laba Bersih yang diperoleh berdasarkan harga pasar.
+3. Strategi Pemasaran Spesifik yang relevan dengan Media Pemasaran pilihan mereka, disesuaikan dengan kondisi demografi kota target mereka.
+4. Tips promosi organik cepat (contoh: cara membuat video unboxing viral atau menyebarkan katalog ke teman dekat).
+
+Gunakan bahasa Indonesia yang penuh semangat wirausaha, menginspirasi, profesional, dan mudah dimengerti anak muda yang baru mau belajar bisnis fashion.`;
+
+        const query = `Halo kajja Business Planner! Rencana bisnis saya:
+- Estimasi Modal Awal: ${budget}
+- Media Pemasaran Utama: ${channel}
+- Lokasi Target Pasar: Kota ${location}
+Tolong bantu susun taktik strategi jualan paling menguntungkan!`;
+
+        try {
+            const result = await callGeminiAPI(systemPrompt, query);
+            currentGeneratedResult = result;
+            renderAiResponse(result);
+            setupWhatsappCta("B2B - AI Business Plan Result", `Hasil Simulasi Rencana Bisnis B2B AI:\n\n${result}`);
+        } catch (error) {
+            showToast("Gagal memuat rencana bisnis AI. Coba lagi beberapa saat.");
+        } finally {
+            loader.classList.add('hidden');
+        }
+    }
+
+    // Render Markdown-like bold and newline markers inside a styled block
+    function renderAiResponse(text) {
+        const responseTextEl = document.getElementById('ai-response-text');
+        const resultBox = document.getElementById('ai-result-box');
+
+        // Convert standard line breaks and bold asterisks for clean innerHTML rendering
+        let formattedText = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong class="font-extrabold text-[#111111]">$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+            .replace(/\n\n/g, '</div><div class="space-y-1 mb-3">')
+            .replace(/\n/g, '<br>');
+
+        responseTextEl.innerHTML = `<div class="space-y-1 mb-3">${formattedText}</div>`;
+        
+        resultBox.classList.remove('hidden');
+        lucide.createIcons();
+    }
+
+    // Copy AI Generated result text to clipboard
+    function copyAiResult() {
+        if (!currentGeneratedResult) return;
+        
+        // Custom clipboard fallback matching iFrame capabilities
+        const el = document.createElement('textarea');
+        el.value = currentGeneratedResult;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        showToast("✓ Hasil rekomendasi berhasil disalin ke clipboard!");
+    }
+
+    function closeAiResult() {
+        const resultBox = document.getElementById('ai-result-box');
+        resultBox.classList.add('hidden');
+    }
+
+    // Setup Dynamic WhatsApp CTA for generated AI results
+    function setupWhatsappCta(subject, textContent) {
+        const ctaBtn = document.getElementById('ai-whatsapp-cta');
+        ctaBtn.onclick = function() {
+            const formattedMsg = `Halo kajja studio, saya ingin mengonsultasikan hasil AI saya:\n\n[Kategori: ${subject}]\n${textContent}`;
+            const encodedText = encodeURIComponent(formattedMsg);
+            const waLink = `https://wa.me/${waNumber}?text=${encodedText}`;
+            
+            showToast("Mengalihkan obrolan WhatsApp ke Admin...");
+            setTimeout(() => {
+                window.open(waLink, '_blank');
+            }, 800);
+        };
+    }
+
+    // Fungsi menyimpan nomor WhatsApp uji coba
+    function saveWANumber() {
+        let inputNum = document.getElementById('wa-input').value.trim();
+        // Bersihkan karakter non-numerik
+        inputNum = inputNum.replace(/[^0-9]/g, '');
+        
+        if (inputNum.length < 10) {
+            showToast("Nomor WhatsApp tidak valid. Gunakan format kode negara (62...)");
+            return;
+        }
+        
+        waNumber = inputNum;
+        localStorage.setItem('kajja_wa_number', inputNum);
+        showToast("✓ Nomor WhatsApp sukses diganti ke: " + inputNum);
+    }
+
+    // Toast Notification custom (Pengganti alert)
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-msg');
+        toastMsg.textContent = message;
+        
+        // Animate in
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        
+        // Animate out after 3.5s
+        setTimeout(() => {
+            toast.classList.add('translate-y-20', 'opacity-0');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+        }, 3500);
+    }
+
+    // Toggle Mobile Navigation Menu Drawer
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('menu-icon-open');
+    const closeIcon = document.getElementById('menu-icon-close');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            openIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+        } else {
+            mobileMenu.classList.add('hidden');
+            openIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }
+    });
+
+    function toggleMobileMenu() {
+        mobileMenu.classList.add('hidden');
+        openIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+    }
+
+    // Interactive FAQ Accordion Logic
+    function toggleFaq(index) {
+        const ans = document.getElementById(`faq-ans-${index}`);
+        const icon = document.getElementById(`faq-icon-${index}`);
+        
+        // Cek jika sedang terbuka
+        if (ans.style.maxHeight && ans.style.maxHeight !== '0px') {
+            ans.style.maxHeight = '0px';
+            icon.style.transform = 'rotate(0deg)';
+        } else {
+            // Tutup semua terlebih dahulu demi visual rapi
+            for (let i = 1; i <= 4; i++) {
+                const otherAns = document.getElementById(`faq-ans-${i}`);
+                const otherIcon = document.getElementById(`faq-icon-${i}`);
+                if (otherAns) otherAns.style.maxHeight = '0px';
+                if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+            }
+            // Buka target
+            ans.style.maxHeight = ans.scrollHeight + "px";
+            icon.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // Close floating promo card helper
+    function closePromoBubble() {
+        const bubble = document.getElementById('floating-promo');
+        bubble.style.display = 'none';
+    }
+
+    // Trigger & Setup Order Modal (B2C Checkout)
+    const modal = document.getElementById('order-modal');
+    const modalContent = document.getElementById('modal-content');
+
+    function triggerOrderModal(productName, price, color) {
+        document.getElementById('modal-product-title').textContent = productName;
+        document.getElementById('modal-product-price').textContent = "Rp " + price.toLocaleString('id-ID');
+        document.getElementById('form-product-name').value = productName;
+        document.getElementById('form-product-price').value = price;
+        document.getElementById('form-product-color').value = color;
+        
+        // Reset inputs
+        document.getElementById('quantity-input').value = "1";
+        document.getElementById('size-select').selectedIndex = 0;
+        
+        // Open modal animations
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+        }, 10);
+    }
+
+    function closeOrderModal() {
+        modal.classList.add('opacity-0');
+        modalContent.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    // Adjust product quantity counter
+    function adjustQty(amount) {
+        const qtyInput = document.getElementById('quantity-input');
+        let currentQty = parseInt(qtyInput.value);
+        currentQty += amount;
+        if (currentQty < 1) currentQty = 1;
+        qtyInput.value = currentQty;
+    }
+
+    // Handle B2C Order Form Submission & WhatsApp URL Redirection
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        
+        const productName = document.getElementById('form-product-name').value;
+        const color = document.getElementById('form-product-color').value;
+        const size = document.getElementById('size-select').value;
+        const qty = document.getElementById('quantity-input').value;
+        const name = document.getElementById('buyer-name').value;
+        const address = document.getElementById('buyer-address').value;
+        const price = parseInt(document.getElementById('form-product-price').value);
+        
+        const totalPrice = price * parseInt(qty);
+
+        // B2C WhatsApp text layout formatting
+        const textTemplate = 
+`Halo kajja studio, saya ingin memesan setelan polo harian Anda dengan rincian berikut:
+
+🛒 Detail Pesanan:
+• Produk: ${productName}
+• Warna: ${color}
+• Ukuran (Size): ${size}
+• Jumlah: ${qty} Pcs
+• Total Pembayaran: Rp ${totalPrice.toLocaleString('id-ID')}
+
+👤 Data Pengiriman:
+• Nama Lengkap: ${name}
+• Alamat Pengiriman: ${address}
+
+Terima kasih admin! Mohon diproses pengiriman saya.`;
+
+        const encodedText = encodeURIComponent(textTemplate);
+        const waLink = `https://wa.me/${waNumber}?text=${encodedText}`;
+
+        closeOrderModal();
+        showToast("Mengalihkan ke WhatsApp Admin B2C...");
+        
+        setTimeout(() => {
+            window.open(waLink, '_blank');
+        }, 800);
+    }
+
+    // Custom instant Direct Chat for B2B & other triggers
+    function openCustomWaChat(category, customMessage) {
+        const formattedMessage = `Halo kajja studio, [Kategori: ${category}] ${customMessage}`;
+        const encodedText = encodeURIComponent(formattedMessage);
+        const waLink = `https://wa.me/${waNumber}?text=${encodedText}`;
+        
+        showToast(`Mengalihkan ke Admin (${category})...`);
+        setTimeout(() => {
+            window.open(waLink, '_blank');
+        }, 800);
+    }
+</script>
+</body>
+</html>
